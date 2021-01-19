@@ -1,8 +1,8 @@
 #conjurerNotificationsContainer {
     position: fixed;
     bottom: 90px;
-    right: 0;
-    width: 350px;
+    right: 20px;
+    width: 330px;
 }
 
 #conjurerNotificationsList li div {

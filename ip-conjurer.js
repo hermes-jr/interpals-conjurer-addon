@@ -28,7 +28,17 @@ function newElement(data) {
     let newConjurerListItem = document.createElement("li");
     let newConjurerListItemContainer = document.createElement("div");
     newConjurerListItem.appendChild(newConjurerListItemContainer);
-    newConjurerListItemContainer.innerHTML += '<a href="' + data.chatUrl + '">' + data.messageTitle + '</a>: <p>' + data.messageText + '</p>';
+
+    let chatLinkItem = document.createElement("a");
+    chatLinkItem.href = data.chatUrl;
+    chatLinkItem.appendChild(document.createTextNode(data.messageTitle));
+    newConjurerListItemContainer.appendChild(chatLinkItem);
+    newConjurerListItemContainer.appendChild(document.createTextNode(':'));
+
+    let messageTextItem = document.createElement("p");
+    messageTextItem.appendChild(document.createTextNode(data.messageText));
+    newConjurerListItemContainer.appendChild(messageTextItem);
+
     document.getElementById("conjurerNotificationsList").appendChild(newConjurerListItem);
 
     // close button
