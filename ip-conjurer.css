@@ -1,0 +1,48 @@
+#conjurerNotificationsContainer {
+    position: fixed;
+    bottom: 90px;
+    right: 0;
+    width: 350px;
+}
+
+#conjurerNotificationsList li div {
+    position: relative;
+}
+
+.conjurer-entry-close-button {
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#conjurerNotificationsList {
+    list-style-type: none;
+}
+
+#conjurerNotificationsList li {
+    padding: 0.4em;
+    margin-bottom: 0.4em;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px
+}
+
+#conjurerNotificationsList p {
+    margin: 1px 0;
+    padding: 0;
+    line-height: 1.1em;
+}
+
+#conjurerNotificationsList:last-child {
+    margin-bottom: 0
+}
+
+#conjurerNotificationsList li {
+    background: #ccc;
+    background: rgba(250, 250, 250, 0.8);
+    -moz-box-shadow: 0 0 6px #ccc;
+    -webkit-box-shadow: 0 0 6px #ccc;
+    box-shadow: 0 0 6px #ccc
+}
