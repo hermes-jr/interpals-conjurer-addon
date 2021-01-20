@@ -31,13 +31,9 @@ function newElement(data) {
 
     let chatLinkItem = document.createElement("a");
     chatLinkItem.href = data.chatUrl;
-    chatLinkItem.appendChild(document.createTextNode(data.messageTitle));
+    let titleOrPlaceholder = (!data.messageTitle || /^\s*$/.test(data.messageTitle)) ? 'Unknown event' : data.messageTitle;
+    chatLinkItem.appendChild(document.createTextNode(titleOrPlaceholder));
     newConjurerListItemContainer.appendChild(chatLinkItem);
-    newConjurerListItemContainer.appendChild(document.createTextNode(':'));
-
-    let messageTextItem = document.createElement("p");
-    messageTextItem.appendChild(document.createTextNode(data.messageText));
-    newConjurerListItemContainer.appendChild(messageTextItem);
 
     document.getElementById("conjurerNotificationsList").appendChild(newConjurerListItem);
 
@@ -50,7 +46,7 @@ function newElement(data) {
     span.onclick = function () {
         let cToRemoveItem = this.parentElement.parentElement;
         cToRemoveItem.style.display = "none";
-        delete knownNotifications[data.id];
+        delete knownNotifications[data.chatUrl];
         saveNotificationsToStorage();
     }
 }
@@ -86,8 +82,10 @@ let observer = new MutationObserver(function (mutationsList) {
                 'messageTitle': messageTitle,
                 'chatUrl': chatUrl
             }
-            knownNotifications[entryId] = entry;
-            newElement(entry);
+            if (!(chatUrl in knownNotifications)) {
+                newElement(entry);
+            }
+            knownNotifications[chatUrl] = entry;
         }
     }
 
@@ -136,25 +134,4 @@ function docReady(fn) {
 /*
     // Trigger site's notification popup. For testing purposes
     $("#notifCont").notify("create",{url:'testUrl',username:'testUserName',title:'testTitle',text:'testText',img:''});
-*/
-
-/*
-    // Intercept the call with devtools. This doesn't work easily with addons because of security reasons.
-
-    console.log('Overriding showNotifications method')
-    origShowNotifications = showNotifications;
-
-    showNotifications = function (msgs) {
-        for (var i = 0; i < msgs.length; i++) {
-            // if (new RegExp("pm.php").test(window.location.href) && typeof msgs[i]["thread_id"] != "undefined" && get_active_thread_id() == msgs[i]["thread_id"]) {
-            //     continue
-            // }
-            if (document.readyState !== "complete") {
-                return
-            }
-            console.log(msgs[i].url, msgs[i].username, msgs[i].text)
-        }
-        return origShowNotifications(msgs);
-    };
-    console.log('Overriding showNotifications complete', showNotifications)
 */
